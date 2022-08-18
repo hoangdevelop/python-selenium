@@ -1,13 +1,15 @@
-# syntax=docker/dockerfile:1
+FROM python:3
 
-FROM python:3.9.2
+WORKDIR /usr/src/app
 
-WORKDIR python-docker
+COPY requirements.txt ./
 
-COPY requirements.txt requirements.txt
+RUN pip install --no-cache-dir -r requirements.txt
 
-RUN pip3 install -r requirements.txt
+RUN pip install selenium
+RUN pip install Selenium-Screenshot
+RUN pip install webdriver-manager
 
 COPY . .
 
-CMD [ "python3", "-m" , "flask", "run", "--host=0.0.0.0"]
+CMD [ "python", "./app.py" ]
