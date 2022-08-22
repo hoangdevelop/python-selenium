@@ -1,10 +1,84 @@
-version: '3'
-
+# To execute this docker-compose yml file use `docker-compose -f docker-compose-v3.yml up`
+# Add the `-d` flag at the end for detached execution
+# To stop the execution, hit Ctrl+C, and then `docker-compose -f docker-compose-v3.yml down`
+version: "3"
 services:
- web:
-  build:
-   context: .
-  ports:
-  - 80:5000
-  volumes:
-  - .:/usr/src/app
+  # web:
+  #   build:
+  #     context: .
+  #   ports:
+  #     - 80:5000
+  #   volumes:
+  #     - .:/usr/src/app
+  #   depends_on:
+  #     - seleniarm-hub
+      
+  chrome:
+    image: seleniarm/node-chromium
+    shm_size: 2gb
+    depends_on:
+      - seleniarm-hub
+    environment:
+      - SE_EVENT_BUS_HOST=seleniarm-hub
+      - SE_EVENT_BUS_PUBLISH_PORT=4442
+      - SE_EVENT_BUS_SUBSCRIBE_PORT=4443
+
+  # edge:
+  #   image: seleniarm/node-edge
+  #   shm_size: 2gb
+  #   depends_on:
+  #     - seleniarm-hub
+  #   environment:
+  #     - SE_EVENT_BUS_HOST=seleniarm-hub
+  #     - SE_EVENT_BUS_PUBLISH_PORT=4442
+  #     - SE_EVENT_BUS_SUBSCRIBE_PORT=4443
+
+  firefox:
+    image: seleniarm/node-firefox
+    shm_size: 2gb
+    depends_on:
+      - seleniarm-hub
+    environment:
+      - SE_EVENT_BUS_HOST=seleniarm-hub
+      - SE_EVENT_BUS_PUBLISH_PORT=4442
+      - SE_EVENT_BUS_SUBSCRIBE_PORT=4443
+
+  # Appium Docker Android
+  # appium_android_device:
+  #   image: appium/appium
+  #   container_name: appium-real-device
+  #   ports:
+  #   - 4723:4723
+  #   depends_on:
+  #     - seleniarm-hub
+  #   privileged: true
+  #   volumes:
+  #     - /dev/bus/usb:/dev/bus/usb
+  #     - ~/.android:/root/.android
+  #   environment:
+  #     - CONNECT_TO_GRID=true
+  #     - SELENIUM_HOST=seleniarm-hub
+
+  # selenium-safari:
+  #   image: selenium/node-base
+  #   container_name: selenium-safari
+  #   shm_size: 2gb
+  #   environment: 
+  #   - SE_EVENT_BUS_HOST=seleniarm-hub
+  #   - SE_EVENT_BUS_PUBLISH_PORT=4442
+  #   - SE_EVENT_BUS_SUBSCRIBE_PORT=4443
+  #   # - SE_NODE_HOST=IPOFMYMAC
+  #   # - SCREEN_WIDTH=1920 
+  #   # - SCREEN_HEIGHT=1080
+  #   ports: 
+  #   - 5555:5555
+  #   volumes: 
+  #   - ./config.toml:/opt/selenium/config.toml
+
+  seleniarm-hub:
+    image: seleniarm/hub
+    container_name: seleniarm-hub
+    ports:
+      - "4442:4442"
+      - "4443:4443"
+      - "4444:4444"

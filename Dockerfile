@@ -12,4 +12,4 @@ RUN pip install webdriver-manager
 
 COPY . .
 
-CMD [ "python", "./app.py" ]
+CMD [ "python", "./index.py" ]
