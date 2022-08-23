@@ -1,5 +1,6 @@
 from selenium.webdriver.chrome.options import Options
 from selenium import webdriver
+from webdriver_manager.chrome import ChromeDriverManager
 
 options = Options()
 options.add_argument("--headless")
@@ -11,7 +12,8 @@ options.add_argument("enable-automation")
 options.add_argument("--disable-infobars")
 options.add_argument("--disable-dev-shm-usage")
 
-driver = webdriver.Chrome(options=options)
+driver = webdriver.Chrome(ChromeDriverManager().install(), options=options)
+
 url = 'https://github.com/'
 
 def screenshot():

@@ -13,3 +13,5 @@ sudo mv /usr/bin/google-chrome-stable /usr/bin/google-chrome
 google-chrome --version && which google-chrome
 
 pip3 install selenium --user
+
+pip3 install webdriver-manager
