@@ -7,11 +7,11 @@ services:
       - 80:5001
     volumes:
       - .:/usr/src/app
-  chrome:
-    image: selenium/standalone-chrome:latest
-    hostname: chrome
-    ports:
-      - "7900:7900"
-      - "5900:5900"
-      - "4444:4444"
-    shm_size: 2g
+  # chrome:
+  #   image: selenium/standalone-chrome:latest
+  #   hostname: chrome
+  #   ports:
+  #     - "7900:7900"
+  #     - "5900:5900"
+  #     - "4444:4444"
+  #   shm_size: 2g
