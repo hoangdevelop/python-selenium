@@ -1,5 +1,5 @@
-from flask import Flask
-import libs_selenium
+from flask import Flask, request
+from libs_selenium import screenshot_full_page
 
 app = Flask(__name__)
 app.debug = True
@@ -8,8 +8,11 @@ app.debug = True
 def index():
     return "Hello world"
 
-@app.route('/screenshot')
-def screenshot():
-    return screenshot();
+@app.route('/test')
+def test():
+    url = request.args.get('url')
+    screenshot_full_page(url)
+    
+    return "take screenshot"
 
 app.run(host='0.0.0.0', port='5001')
