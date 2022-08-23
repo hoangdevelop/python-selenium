@@ -10,8 +10,6 @@ services:
   chrome:
     image: selenium/standalone-chrome:latest
     hostname: chrome
-    networks:
-      - web
     ports:
       - "7900:7900"
       - "5900:5900"
