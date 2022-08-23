@@ -12,7 +12,7 @@ def index():
 def test():
     url = request.args.get('url')
     screenshot_full_page(url)
-    
+
     return "take screenshot"
 
-app.run(host='0.0.0.0', port='5001')
+app.run(host='0.0.0.0', port='80')
