@@ -9,7 +9,7 @@ def index():
     return "Hello world"
 
 @app.route('/screenshot')
-def index():
+def screenshot():
     return screenshot();
 
 app.run(host='0.0.0.0', port='5001')
