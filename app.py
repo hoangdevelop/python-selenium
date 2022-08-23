@@ -1,5 +1,5 @@
 from flask import Flask
-import selenium
+import libs_selenium
 
 app = Flask(__name__)
 app.debug = True
